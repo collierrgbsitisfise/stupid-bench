@@ -1,5 +1,5 @@
 const express = require('express');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -13,15 +13,15 @@ const heyIamNonBlocking = (ms) => new Promise(res => {
   }, ms);
 });
 
-// app.get('/cpu', (req, res) => {
-//   let hash;
-//   for (let i = 0; i < 30; i++) {
-//     const salt = bcrypt.genSaltSync(10);
-//     hash = bcrypt.hashSync(String(+new Date()), salt);
-//   }
+app.get('/cpu', (req, res) => {
+  let hash;
+  for (let i = 0; i < 30; i++) {
+    const salt = bcrypt.genSaltSync(10);
+    hash = bcrypt.hashSync(String(+new Date()), salt);
+  }
 
-//   res.send(hash);
-// });
+  res.send(hash);
+});
 
 app.get('/noneblocking', async (req, res) => {
   const random = randomIntFromInterval(100, 1200);
